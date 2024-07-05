@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steghost</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="welcome-page" class="page">
+        <h1 class="project-name">Steghost</h1>
+        <h1 class="welcome-message">Welcome to Steghost</h1>
+    </div>
+    <div id="main-page" class="page hidden">
+        <h2 class="project-name">Steghost</h2>
+        <h2>Select an Option</h2>
+        <div class="button-container">
+            <button onclick="navigateTo('image-stego.html')">Image Stego</button>
+            <button onclick="navigateTo('video-stego.html')">Video Stego</button>
+            <button onclick="navigateTo('audio-stego.html')">Audio Stego</button>
+            <button onclick="navigateTo('qr-stego.html')">QR Stego</button>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
