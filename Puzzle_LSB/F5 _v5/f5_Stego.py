@@ -41,15 +41,16 @@ def reverse_permute_pixels(permuted_pixels, permuted_indices):
     
     return original_pixels
 
-def f5_embed(channel_pixels, message_bits, key ,scenario):
-    if scenario == 0  or message_bits == []: # No embedding
+def f5_embed(channel_pixels, message_bits, key, scenario):
+    if scenario == 0 or message_bits.size == 0:  # No embedding
         return channel_pixels
+    
     permuted_pixels, permuted_indices = permute_pixels(channel_pixels, key)
     encoded_pixels = permuted_pixels.copy()
-    if scenario == 1 : # Partial embedding
-        encoded_pixels = matrix_encode(message_bits, encoded_pixels)
-    else : # Full embedding
-        encoded_pixels = matrix_encode(message_bits, permuted_pixels)
+    
+    # Partial embedding or Full embedding
+    encoded_pixels = matrix_encode(message_bits, permuted_pixels)
+        
     stego_encoded_pixels = reverse_permute_pixels(encoded_pixels, permuted_indices)
     return stego_encoded_pixels
 
@@ -70,50 +71,51 @@ def get_image(red_channel, green_channel, blue_channel , height, width):
     reconstructed_image.save('reconstructed_image.png')  # Save the image
 
 def compute_data_size(data_size_array):
-    length = int(data_size_array,2)
-    #print('length',length)
+    data_size_str = ''.join(map(str, data_size_array))
+    length = int(data_size_str,2)
+    print('length',length, ' bits')
     return length
 
 
-def Data_Distributer(pure_data , pure_data_size , max_capacity_per_channel):
+def Data_Distributer(pure_data , data_size , max_capacity_per_channel):
     #Scenario 0: No data to embedding into channel
     #Scenario 1: partial embedding of data into channel
     #Scenario 2: Full embedding of data into channel
-    #Error = True if pure_data_size > 3* max_capacity_per_channel
+    #Error = True if data_size > 3* max_capacity_per_channel
     Error = False #
     red_channel_bit_array= []
     green_channel_bit_array= []
     blue_channel_bit_array= []
-    if pure_data_size < max_capacity_per_channel:
+    if data_size < max_capacity_per_channel:
         red_channel_scenario = 1
         green_channel_scenario = 0
         blue_channel_scenario = 0
         red_channel_bit_array = pure_data
-    elif pure_data_size == max_capacity_per_channel:
+    elif data_size == max_capacity_per_channel:
         red_channel_scenario = 2
         green_channel_scenario = 0
         blue_channel_scenario = 0
         red_channel_bit_array = pure_data
-    elif pure_data_size < 2 * max_capacity_per_channel:
+    elif data_size < 2 * max_capacity_per_channel:
         red_channel_scenario = 2
         green_channel_scenario = 1
         blue_channel_scenario = 0
         red_channel_bit_array = pure_data[:max_capacity_per_channel]
         green_channel_bit_array = pure_data[max_capacity_per_channel:]
-    elif pure_data_size == 2 * max_capacity_per_channel:
+    elif data_size == 2 * max_capacity_per_channel:
         red_channel_scenario = 2
         green_channel_scenario = 2
         blue_channel_scenario = 0
         red_channel_bit_array = pure_data[:max_capacity_per_channel]
         green_channel_bit_array = pure_data[max_capacity_per_channel:]        
-    elif pure_data_size < 3 * max_capacity_per_channel:
+    elif data_size < 3 * max_capacity_per_channel:
         red_channel_scenario = 2
         green_channel_scenario = 2
         blue_channel_scenario = 1
         red_channel_bit_array = pure_data[:max_capacity_per_channel]
         green_channel_bit_array = pure_data[max_capacity_per_channel:2 * max_capacity_per_channel]
         blue_channel_bit_array = pure_data[2 * max_capacity_per_channel:]
-    elif pure_data_size == 3 * max_capacity_per_channel:
+    elif data_size == 3 * max_capacity_per_channel:
         red_channel_scenario = 2
         green_channel_scenario = 2
         blue_channel_scenario = 2
@@ -128,14 +130,14 @@ def Data_Distributer(pure_data , pure_data_size , max_capacity_per_channel):
 # Example usage
 filename = 'data.bin'
 bit_array = read_bin_file_to_bits(filename)
-pure_data_size = compute_data_size(bit_array[:31])
-pure_data = bit_array[31:]
+print('bit_array[:24]',bit_array[:24])
+data_size = compute_data_size(bit_array[:24]) # Size of All data to be hidden includes bit_array[:24] bits
 
 image_path = 'image.png'  # Replace with your image path
 red_channel, green_channel, blue_channel ,height, width = get_pixels_array_channels(image_path)
 max_capacity_per_channel = height * width
 
-red_channel_scenario, green_channel_scenario, blue_channel_scenario, red_channel_bit_array, green_channel_bit_array, blue_channel_bit_array , Error = Data_Distributer(pure_data, pure_data_size , max_capacity_per_channel)
+red_channel_scenario, green_channel_scenario, blue_channel_scenario, red_channel_bit_array, green_channel_bit_array, blue_channel_bit_array , Error = Data_Distributer(bit_array[:data_size], data_size , max_capacity_per_channel)
 
 # ......
 # F5

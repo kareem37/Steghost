@@ -20,7 +20,7 @@ def permute_pixels(channel_pixels, key):
 
 def f5_extract_message(key, stego_encoded_pixels):
     permuted_pixels, _ = permute_pixels(stego_encoded_pixels, key)
-    extracted_bits = [coeff % 2 for coeff in permuted_pixels]
+    extracted_bits = [pixel % 2 for pixel in permuted_pixels]
     return extracted_bits
 
 def bits_to_bytes(bits):
@@ -44,6 +44,17 @@ def save_bits_to_bin_file(bits, filename):
     with open(filename, 'wb') as file:
         file.write(byte_array)
 
+def compute_data_size(data_size_array):
+    data_size_str = ''.join(map(str, data_size_array))
+    length = int(data_size_str,2)
+    print('data_size length',length, ' bits')
+    return length
+
+def extract_actual_data_bits(extracted_bits):
+    data_size_array =  extracted_bits[:24]
+    data_size =  compute_data_size(data_size_array)
+    return extracted_bits[:data_size]
+    
 
 # Load the Stego RGB image
 image_path = 'reconstructed_image.png'
@@ -58,6 +69,7 @@ extracted_bits_blue_channel = f5_extract_message(key, blue_channel)
 #Concatenate
 extracted_bits = extracted_bits_red_channel + extracted_bits_green_channel + extracted_bits_blue_channel
 
+extracted_bits = extract_actual_data_bits(extracted_bits)
 # Save the extracted bits to a binary file
 filename = 'extracted_data.bin'
 save_bits_to_bin_file(extracted_bits, filename)
