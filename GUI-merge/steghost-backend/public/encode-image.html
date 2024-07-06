@@ -41,7 +41,14 @@
             font-size: 16px;
         }
         button:hover {
-            background-color: #4caf50;
+            background-color: #45a049;
+        }
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
@@ -56,8 +63,16 @@
 
         <form id="dataForm" action="/upload-data" method="POST" enctype="multipart/form-data" style="display: none;">
             <input type="file" id="dataInput" name="data" required />
+            <input type="hidden" id="imageFilePath" name="imageFilePath">
         </form>
         <button id="uploadDataButton">Upload Data</button>
+
+        <input type="hidden" id="embeddedImagePath" name="embeddedImagePath">
+        <a id="downloadImageButton" style="display: none;" download="embedded_image.png">Download Image</a>
+
+        <div class="loading" id="loading">
+            <img src="loading.gif" alt="Loading...">
+        </div>
     </div>
 
     <script>
@@ -67,7 +82,19 @@
 
         document.getElementById('imageInput').addEventListener('change', function(event) {
             if (event.target.files.length > 0) {
-                document.getElementById('imageForm').submit();
+                const formData = new FormData();
+                formData.append('image', event.target.files[0]);
+
+                fetch('/upload-image', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('imageFilePath').value = data.imageFilePath;
+                    alert('Image uploaded successfully!');
+                })
+                .catch(error => console.error('Error uploading image:', error));
             }
         });
 
@@ -77,7 +104,40 @@
 
         document.getElementById('dataInput').addEventListener('change', function(event) {
             if (event.target.files.length > 0) {
-                document.getElementById('dataForm').submit();
+                const formData = new FormData();
+                formData.append('data', event.target.files[0]);
+                formData.append('imageFilePath', document.getElementById('imageFilePath').value);
+
+                document.getElementById('loading').style.display = 'block'; // Show loading icon
+
+                fetch('/upload-data', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('embeddedImagePath').value = data.embeddedImagePath;
+                    document.getElementById('downloadImageButton').href = data.embeddedImagePath;
+                    document.getElementById('downloadImageButton').style.display = 'block';
+                    document.getElementById('loading').style.display = 'none'; // Hide loading icon
+                    alert('Data embedded successfully!');
+                })
+                .catch(error => {
+                    console.error('Error embedding data:', error);
+                    document.getElementById('loading').style.display = 'none'; // Hide loading icon
+                });
+            }
+        });
+
+        document.getElementById('downloadImageButton').addEventListener('click', function() {
+            const embeddedImagePath = document.getElementById('embeddedImagePath').value;
+            if (embeddedImagePath) {
+                const link = document.createElement('a');
+                link.href = embeddedImagePath;
+                link.download = 'embedded_image.png';
+                link.click();
+            } else {
+                alert('No embedded image available for download.');
             }
         });
     </script>
