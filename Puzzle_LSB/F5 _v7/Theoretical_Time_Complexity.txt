@@ -1,0 +1,20 @@
+Time Complexity Analysis:
+    help module
+        compute_data_size: O(d), where d is the size of the data size array.
+    data_reader module
+        read_bin_file_to_bits: O(n), where n is the size of the file.
+        get_pixels_array_channels: O(h * w), where h and w are the height and width of the image.
+    pixel_permutation module
+        permute_pixels: O(n log n), primarily due to the permutation process.
+        reverse_permute_pixels: O(n log n), due to the sorting step.
+    encoding module
+        matrix_encode: O(m), where m is the number of message bits.
+        f5_embed: O(n log n + m), due to permutation and encoding processes.
+        Data_Distributer: O(1), primarily consists of condition checks and array slicing.
+    image_reconstruction module
+        get_image: O(h * w), reshaping and stacking arrays to reconstruct the image.
+    Total Execution Time
+        The total time complexity for the F5_Steganography function will be approximately:
+        
+        O(n + h * w + n log n + m)
+In practice, since image height and width (h, w) and file size (n) are the dominant factors, the overall time complexity is primarily determined by these values.

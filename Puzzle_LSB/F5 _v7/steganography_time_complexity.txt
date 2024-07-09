@@ -1,0 +1,10 @@
+read_bin_file_to_bits execution time: 0.000000 seconds
+append_data_size_to_bit_array execution time: 0.015624 seconds
+get_pixels_array_channels execution time: 0.095611 seconds
+Data_Distributer execution time: 0.000000 seconds
+permute_pixels execution time: 0.064021 seconds
+matrix_encode execution time: 0.000000 seconds
+reverse_permute_pixels execution time: 0.156658 seconds
+f5_embed execution time: 0.220678 seconds
+get_image execution time: 0.447628 seconds
+Total execution time: 0.779541 seconds

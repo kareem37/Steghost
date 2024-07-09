@@ -71,7 +71,7 @@ def bits_to_bytes(bit_array):
     
 # Example usage
 filename = 'data.bin'
-size_in_bits = 720 * 1280 *3  # Specify the size in bits
+size_in_bits = 16  # Specify the size in bits
 generate_random_bin_file(filename, size_in_bits)
 print(f"Generated a binary file '{filename}' of size {size_in_bits} bits.")
 

@@ -1,0 +1,5 @@
+read_bin_file_to_bits execution time: 0.024201 seconds
+append_data_size_to_bit_array execution time: 0.000000 seconds
+get_pixels_array_channels execution time: 0.096082 seconds
+Data_Distributer execution time: 0.000000 seconds
+Total execution time: 0.120283 seconds

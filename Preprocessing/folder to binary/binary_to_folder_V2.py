@@ -2,7 +2,7 @@ import os
 import gzip
 import lzma
 import zstandard as zstd
-import pyzipper
+#import pyzipper
 import pickle
 
 #GZIP
@@ -43,4 +43,6 @@ def binary_to_folder(binary_file_path, output_folder):
 
 # Example usage
 if __name__ == "__main__":
-    binary_to_folder(r'D:\Study -2\Y4 S2\GP\Coding\SteGhost\Preprocessing\Convering\reconstructed_binary_file.bin', r'D:\Study -2\Y4 S2\GP\Coding\SteGhost\Preprocessing\Convering\reconstructed_folder')
+    final_binary_file_path = 'reconstructed_folder_data.bin' 
+    out_folder_path = 'Out_Test'
+    binary_to_folder(final_binary_file_path,out_folder_path)

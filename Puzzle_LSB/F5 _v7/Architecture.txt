@@ -1,0 +1,30 @@
+The code performs F5 steganography to hide binary data within an image. Here's a high-level architecture:
+
+Data Reading and Conversion: Functions to read binary data and image pixel data.
+Pixel Permutation and Encoding: Functions to permute and encode pixel values based on the data.
+Data Distribution and Embedding: Functions to distribute and embed the data into different color channels.
+Image Reconstruction: Functions to reconstruct and save the modified image.
+-----------
+We'll organize the code into different modules:
+
+data_reader.py: Reading binary data and image pixels.
+pixel_permutation.py: Permutation and reverse permutation of pixels.
+encoding.py: Encoding and embedding logic.
+image_reconstruction.py: Reconstructing and saving the image.
+F5_Steganography.py: Main steganography logic.
+
+----------------
+The code extracts hidden data from a stego image using F5 DeSteganography. The process involves:
+
+Reading pixel data from the stego image.
+Permuting pixels based on a key.
+Extracting message bits from the permuted pixels.
+Converting bits to bytes and saving to a binary file.
+--------
+We'll organize the code into the following modules:
+
+image_processing.py: Functions for reading image data and reshaping channels.
+permutation.py: Functions for permuting pixels.
+extraction.py: Functions for extracting message bits and computing data size.
+bit_operations.py: Functions for converting bits to bytes and saving to a binary file.
+F5_DeSteganography.py: Main script for orchestrating the extraction process and logging time complexity.
