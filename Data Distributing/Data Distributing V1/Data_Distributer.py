@@ -31,11 +31,13 @@ def split_binary_data(binary_data, capacities):
         end_time = time.time()
         print(f"Time to process binary data: {end_time - start_time:.4f} seconds")
         return True, chunks
-
+    counter = 0
     for capacity in capacities:
-        chunk = binary_data[byte_index:byte_index + capacity]
+        chunk = binary_data[byte_index:byte_index + capacity]     
         if chunk:  # Only add non-empty chunks
             chunks.append(chunk)
+            counter += 1
+            print(f"Chunk {counter} saved successfully.")
         byte_index += capacity
 
     end_time = time.time()

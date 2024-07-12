@@ -2,6 +2,7 @@
 imports
 '''
 import argparse
+import os
 import numpy as np
 from PIL import Image
 import time
@@ -11,6 +12,10 @@ from numba import cuda, njit
 help module
 '''
 def clear_time_complexity_log(file_name):
+    # Create the directory if it does not exist
+    os.makedirs(os.path.dirname(file_name), exist_ok=True)
+    
+    # Create or clear the file
     with open(file_name, "w") as f:
         f.write("")
         
