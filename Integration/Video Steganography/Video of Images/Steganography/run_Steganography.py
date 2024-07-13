@@ -1,12 +1,14 @@
 import subprocess
 import os
 import shutil
+from concurrent.futures import ThreadPoolExecutor
+import time
 
 def clear_output_folder(output_folder):
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
     os.makedirs(output_folder)
-    
+
 def run_steganography(script_path, key, data_bit_count, filename, in_image_path, out_image_path, Stego_Time_file):
     subprocess.run([
         "python", script_path,
@@ -26,7 +28,22 @@ def delete_folders(*folders):
         if os.path.exists(folder):
             shutil.rmtree(folder)
 
+def process_chunk(i, algorithm_pattern, script_paths, key, data_bit_count, frames_folder_data, frames_folder_images, input_frames_video, time_complexity_folder): 
+    file_index = f'{i:05d}'
+    filename = os.path.join(frames_folder_data, f'chunk_{file_index}.bin')
+    in_image_path = os.path.join(frames_folder_images, f'{file_index}.png')
+    out_image_path = os.path.join(input_frames_video, f'{file_index}.png')
+    Stego_Time_file = os.path.join(time_complexity_folder, f'{file_index}.txt')
+    
+    # Determine which algorithm to use based on the pattern
+    algorithm = algorithm_pattern[i % len(algorithm_pattern)]
+    script_path = script_paths[algorithm]
+
+    run_steganography(script_path, key, data_bit_count, filename, in_image_path, out_image_path, Stego_Time_file)
+
 # Example usage
+start_time = time.time()
+
 key = 23
 data_bit_count = 24
 base_folder = r'E:\(4)\GP2024\Final\Steghost\Integration\Video Steganography\Video of Images\Steganography'
@@ -49,18 +66,22 @@ loop_count = get_loop_count(frames_folder_data)
 # Pattern for applying algorithms
 algorithm_pattern = ["LSB_4", "LSB_4", "LSB_4", "F5", "F5", "Adaptive_threshold"]
 
-for i in range(loop_count):
-    file_index = f'{i:05d}'
-    filename = os.path.join(frames_folder_data, f'chunk_{file_index}.bin')
-    in_image_path = os.path.join(frames_folder_images, f'{file_index}.png')
-    out_image_path = os.path.join(input_frames_video, f'{file_index}.png')
-    Stego_Time_file = os.path.join(time_complexity_folder, f'{file_index}.txt')
-    
-    # Determine which algorithm to use based on the pattern
-    algorithm = algorithm_pattern[i % len(algorithm_pattern)]
-    script_path = script_paths[algorithm]
+# Use ThreadPoolExecutor to run the tasks in parallel
+with ThreadPoolExecutor() as executor:
+    futures = [
+        executor.submit(
+            process_chunk, i, algorithm_pattern, script_paths, key, data_bit_count,
+            frames_folder_data, frames_folder_images, input_frames_video, time_complexity_folder
+        ) for i in range(loop_count)
+    ]
 
-    run_steganography(script_path, key, data_bit_count, filename, in_image_path, out_image_path, Stego_Time_file)
+# Ensure all futures are completed
+for future in futures:
+    future.result()
+
+end_time = time.time()
+execution_time = end_time - start_time
+print("GPU execution_time: " , execution_time, "For #", loop_count ,"Frame")
 
 # Delete the specified folders after processing all chunks
-delete_folders(frames_folder_images, frames_folder_data)
+delete_folders(frames_folder_data)

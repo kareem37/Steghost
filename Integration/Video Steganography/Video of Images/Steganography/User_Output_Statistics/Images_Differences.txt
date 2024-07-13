@@ -1,0 +1,2 @@
+Total count of diff bits: 7063263 / 78474240, Percentage: 9.00%
+SSIM = 0.9965: //SSIM in (0, 1): Indicates the degree of similarity. The closer to 1, the more similar the Videos Frames are.

@@ -1,0 +1,5 @@
+Interpretation of SSIM
+SSIM = 1: The two images are identical.
+SSIM = 0: There is no structural similarity between the two images.
+SSIM in (0, 1): Indicates the degree of similarity. The closer to 1, the more similar the images are.
+---------------

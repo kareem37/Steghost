@@ -9,6 +9,7 @@ def run_script(script_name):
 
 def main():
     scripts = [
+        'Convert_png.py',
         'create_Frames_Folder.py',
         'Resize_Imges.py',
         'get_Video_max_Capacity.py',
@@ -18,6 +19,7 @@ def main():
         'number_Frames_needed.py',
         'Data_Distributer.py',
         'run_Steganography.py',
+        'get_Images_Differences.py',
         'Images_Video_Converter.py'
     ]
 

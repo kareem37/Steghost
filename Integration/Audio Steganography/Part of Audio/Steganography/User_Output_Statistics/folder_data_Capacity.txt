@@ -1,0 +1,5 @@
+Total Capacity: 3704320 bits
+Total Capacity: 463040.00 bytes
+Total Capacity: 452.19 KB
+Total Capacity: 0.44 MB
+Total Capacity: 0.00 GB

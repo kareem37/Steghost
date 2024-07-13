@@ -87,9 +87,9 @@ def hide_data_in_audio(cover_audio_path, bin_data_path, stego_audio_wav_path, bi
             os.remove(cover_audio_path)  # Clean up the temporary WAV file
 
 if __name__ == "__main__":
-    cover_audio_path = r'audio.mp3'
+    cover_audio_path = r'audio.wav'
     bin_data_path = r'encrypted_data.bin'
-    stego_audio_wav_path = r'stego_audio.wav'
+    stego_audio_wav_path = r'User_output\stego_audio.wav'
     bits_per_sample = 3
 
     hide_data_in_audio(cover_audio_path, bin_data_path, stego_audio_wav_path, bits_per_sample)
@@ -98,6 +98,6 @@ if __name__ == "__main__":
     # Delete the input cover_audio file
     try:
         os.remove(cover_audio_path)
-        print(f"Deleted the input MP3 file: {cover_audio_path}")
+        print(f"Deleted the input Wav file: {cover_audio_path}")
     except OSError as e:
         print(f"Error: {cover_audio_path} : {e.strerror}")

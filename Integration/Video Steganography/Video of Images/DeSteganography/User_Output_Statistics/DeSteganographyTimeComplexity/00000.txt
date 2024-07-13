@@ -1,0 +1,12 @@
+get_pixels_array_channels execution time: 0.079239 seconds
+permute_pixels execution time: 0.032452 seconds
+f5_extract_message execution time: 3.187363 seconds
+compute_data_size execution time: 0.000000 seconds
+permute_pixels execution time: 0.026279 seconds
+f5_extract_message execution time: 0.026279 seconds
+permute_pixels execution time: 0.020233 seconds
+f5_extract_message execution time: 0.021232 seconds
+extract_actual_data_bits execution time: 0.000000 seconds
+bits_to_bytes execution time: 0.001022 seconds
+save_bits_to_bin_file execution time: 0.002004 seconds
+Total execution time: 3.316626 seconds

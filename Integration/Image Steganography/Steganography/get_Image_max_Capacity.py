@@ -48,7 +48,7 @@ def main(image_path, algorithm_file, output_file):
     write_max_capacity_to_file(output_file, algorithm_choice, max_capacity)
 
 if __name__ == "__main__":
-    image_path = r'User_Cover_Image\image.png'
+    image_path = r'image.png'
     algorithm_file = r'User_Cover_Image\Algorithm.txt'
     output_file = r'User_Output_Statistics\Image_max_Capacity.txt'
     main(image_path, algorithm_file, output_file)

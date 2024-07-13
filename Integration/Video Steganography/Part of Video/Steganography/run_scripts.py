@@ -17,6 +17,7 @@ def main():
         'Video_Frames_Converter.py',
         'Data_Distributer.py',
         'run_Steganography.py',
+        'get_Images_Differences.py',
         'Images_Video_Converter.py'
     ]
 

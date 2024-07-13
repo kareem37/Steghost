@@ -64,7 +64,7 @@ key = 23
 data_bit_count = 24
 base_folder = r'E:\(4)\GP2024\Final\Steghost\Integration\Image Steganography\Steganography'
 input_folder_data = base_folder
-input_folder_image = os.path.join(base_folder, 'User_Cover_Image')
+input_folder_image = base_folder
 output_folder_image = os.path.join(base_folder, 'User_Output_Image')
 time_complexity_folder = os.path.join(base_folder, 'User_Output_Statistics\Steganography_TimeComplexity')
 
@@ -98,7 +98,8 @@ if data_capacity <= image_max_capacity:
 
     # Run the steganography process
     run_steganography(script_path, key, data_bit_count, filename, in_image_path, out_image_path, Stego_Time_file)
-    delete_bin_file(filename)
+    delete_bin_file(filename)    
+
 
 else:
     print("Data capacity exceeds image capacity. Steganography not performed.")

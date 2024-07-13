@@ -1,6 +1,12 @@
 import os
+import shutil
 from PIL import Image
 
+def delete_folders(*folders):
+    for folder in folders:
+        if os.path.exists(folder):
+            shutil.rmtree(folder)
+            
 def read_frequencies(file_path):
     # Open the file and read the lines
     with open(file_path, 'r') as file:
@@ -39,9 +45,11 @@ def main(input_folder, frequencies, output_folder):
     save_images(images, frequencies, output_folder)
 
 # Example usage:
-input_folder = r'User_Cover_Images'
+input_folder = r'User_Cover_png_Images'
 frequencies_path = r'User_Cover_Images\Images_Frequency.txt'
 frequency_array = read_frequencies(frequencies_path)
 output_folder = r'Frames_folder'
 
 main(input_folder, frequency_array, output_folder)
+# Delete the specified folders after processing all chunks
+delete_folders(input_folder)

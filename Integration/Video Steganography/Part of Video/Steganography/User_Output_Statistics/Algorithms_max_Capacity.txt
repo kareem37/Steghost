@@ -1,0 +1,4 @@
+LSB_4 Capacity: 691176 bits Per Frame
+F5 Capacity: 691176 bits Per Frame
+Adaptive_threshold Capacity: 576000 bits Per Frame
+==============================================

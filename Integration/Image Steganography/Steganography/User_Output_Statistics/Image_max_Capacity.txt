@@ -1,0 +1,6 @@
+Algorithm: F5
+Total Capacity: 2764776 bits
+Total Capacity: 345597.00 bytes
+Total Capacity: 337.50 KB
+Total Capacity: 0.33 MB
+Total Capacity: 0.00 GB

@@ -9,11 +9,13 @@ def run_script(script_name):
 
 def main():
     scripts = [
+        'Convert_png.py',
         'get_Image_max_Capacity.py',
         'folder_to_binary.py',
         'encrypt.py',
         'get_bin_file_Capacity.py',
-        'run_Steganography.py'
+        'run_Steganography.py',
+        'get_Images_Diffrences.py'
     ]
 
     for script in scripts:

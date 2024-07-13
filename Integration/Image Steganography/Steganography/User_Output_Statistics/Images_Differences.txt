@@ -1,0 +1,2 @@
+Total count of diff bits: ( 183642 bit ) out of ( 7372800 bit ), Percentage: 2.49%
+SSIM = 0.9989: //SSIM in (0, 1): Indicates the degree of similarity. The closer to 1, the more similar the images are.

@@ -10,7 +10,7 @@ def run_script(script_name):
 def main():
     scripts = [
         'Video_Frames_Converter.py',
-        'run_DeSteganography.py.py',
+        'run_DeSteganography.py',
         'Concatenate_bin_files.py',
         'decrypt.py',
         'binary_to_folder.py'
